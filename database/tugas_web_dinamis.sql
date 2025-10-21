@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 13 Okt 2025 pada 01.35
+-- Waktu pembuatan: 21 Okt 2025 pada 13.19
 -- Versi server: 9.3.0
 -- Versi PHP: 8.2.28
 
@@ -64,7 +64,7 @@ CREATE TABLE `halaman` (
 --
 
 INSERT INTO `halaman` (`id`, `judul_halaman`, `konten_halaman`, `gambar`, `user_id`) VALUES
-(9, 'wqe', 'asd', 'Screenshot 2025-09-30 at 18.41.26.png', 1);
+(10, 'lalapo', 'lalapo', 'Screenshot 2025-08-29 at 15.01.48.png', 1);
 
 -- --------------------------------------------------------
 
@@ -110,31 +110,97 @@ CREATE TABLE `kontak` (
 --
 
 INSERT INTO `kontak` (`id`, `nama`, `nomor_hp`, `status`, `user_id`) VALUES
-(23, 'kontak', '123123131231231', 'AKTIF', 1);
+(23, 'kontak', '11111', 'AKTIF', 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user`
+-- Struktur dari tabel `menus`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE `menus` (
+  `id` int NOT NULL,
+  `parent_id` int DEFAULT NULL,
+  `title` varchar(100) NOT NULL,
+  `icon` varchar(50) DEFAULT NULL,
+  `url` varchar(150) DEFAULT '#',
+  `order_no` int DEFAULT '0',
+  `role_access` varchar(255) DEFAULT NULL,
+  `is_active` tinyint(1) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data untuk tabel `menus`
+--
+
+INSERT INTO `menus` (`id`, `parent_id`, `title`, `icon`, `url`, `order_no`, `role_access`, `is_active`) VALUES
+(1, NULL, 'Dashboard', 'bi bi-speedometer2', 'dashboard', 1, 'admin', 1),
+(2, NULL, 'Manajemen Halaman', 'bi bi-file-text', 'halaman', 2, 'admin,user', 1),
+(3, NULL, 'Manajemen Kontak', 'bi bi-person-lines-fill', 'kontak', 3, 'admin,user', 1),
+(4, NULL, 'Pengaturan', 'bi bi-gear', '#', 4, 'admin', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` int NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `deskripsi` varchar(150) DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data untuk tabel `roles`
+--
+
+INSERT INTO `roles` (`id`, `nama`, `deskripsi`, `created_at`) VALUES
+(1, 'admin', 'Administrator', '2025-10-20 21:13:59'),
+(2, 'user', 'User biasa', '2025-10-20 21:13:59');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `users`
+--
+
+CREATE TABLE `users` (
   `id` int UNSIGNED NOT NULL,
-  `nama` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
-  `username` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(150) COLLATE utf8mb4_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `nama` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_gl_0900_ai_ci;
 
 --
--- Dumping data untuk tabel `user`
+-- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `user` (`id`, `nama`, `username`, `password`) VALUES
+INSERT INTO `users` (`id`, `nama`, `username`, `password`) VALUES
 (1, 'lalapo', 'lalapo', '$2y$10$RXhiy08PudIxu0XE4v892.fnr6f.UQZMUHLuhr3gVfPJdvTG3XQTW'),
 (2, 'tes user', 'tes', '$2y$10$RXhiy08PudIxu0XE4v892.fnr6f.UQZMUHLuhr3gVfPJdvTG3XQTW'),
 (3, 'didik', 'didik', '$2y$12$EPuxmAx5jhkgrHvQFUuxueuEZJaE4uzhle4TmIvG7iddKdzedpVuy'),
 (4, 'didiksamsul', 'didiksamsul', '$2y$12$ePpjxEWR2bRfuH..0svBmul6ip0KOxQkwQHcgpSF71rvTPW4ZIYWy'),
 (6, 'malam@ma.com', 'malam', '$2y$10$dFHOsRo7OBibA1B3zniCCuQ4POSLrRqjkRjZ/KwyRSM3VeV/Z9Hl2');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `user_roles`
+--
+
+CREATE TABLE `user_roles` (
+  `user_id` int UNSIGNED NOT NULL,
+  `role_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data untuk tabel `user_roles`
+--
+
+INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
+(1, 1);
 
 --
 -- Indexes for dumped tables
@@ -170,11 +236,32 @@ ALTER TABLE `kontak`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indeks untuk tabel `user`
+-- Indeks untuk tabel `menus`
 --
-ALTER TABLE `user`
+ALTER TABLE `menus`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `parent_id` (`parent_id`);
+
+--
+-- Indeks untuk tabel `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nama` (`nama`);
+
+--
+-- Indeks untuk tabel `users`
+--
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`);
+
+--
+-- Indeks untuk tabel `user_roles`
+--
+ALTER TABLE `user_roles`
+  ADD PRIMARY KEY (`user_id`,`role_id`),
+  ADD KEY `role_id` (`role_id`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -190,7 +277,7 @@ ALTER TABLE `berita`
 -- AUTO_INCREMENT untuk tabel `halaman`
 --
 ALTER TABLE `halaman`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `komentar`
@@ -202,12 +289,24 @@ ALTER TABLE `komentar`
 -- AUTO_INCREMENT untuk tabel `kontak`
 --
 ALTER TABLE `kontak`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT untuk tabel `user`
+-- AUTO_INCREMENT untuk tabel `menus`
 --
-ALTER TABLE `user`
+ALTER TABLE `menus`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `users`
+--
+ALTER TABLE `users`
   MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
@@ -218,25 +317,38 @@ ALTER TABLE `user`
 -- Ketidakleluasaan untuk tabel `berita`
 --
 ALTER TABLE `berita`
-  ADD CONSTRAINT `berita_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `berita_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Ketidakleluasaan untuk tabel `halaman`
 --
 ALTER TABLE `halaman`
-  ADD CONSTRAINT `halaman_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+  ADD CONSTRAINT `halaman_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 --
 -- Ketidakleluasaan untuk tabel `komentar`
 --
 ALTER TABLE `komentar`
-  ADD CONSTRAINT `komentar_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `komentar_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Ketidakleluasaan untuk tabel `kontak`
 --
 ALTER TABLE `kontak`
-  ADD CONSTRAINT `kontak_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+  ADD CONSTRAINT `kontak_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+--
+-- Ketidakleluasaan untuk tabel `menus`
+--
+ALTER TABLE `menus`
+  ADD CONSTRAINT `menus_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `menus` (`id`) ON DELETE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `user_roles`
+--
+ALTER TABLE `user_roles`
+  ADD CONSTRAINT `user_roles_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_roles_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
