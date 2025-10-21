@@ -5,10 +5,37 @@ perlu vhost atau belum bisa dalam sub folder.
 1. edit config/config.php
 ubah sesuai.
 BAGIAN base url belum bisa dalam subfolder
-'base_url' => 'http://didik_samsul_refactor.test', 
+'base_url' => 'http://tugas-oop.test', 
+2. untuk pembuatan host pada OS windows bisa edit file C:\Windows\System32\drivers\etc\hosts
+  dengan klik kanan  notepad Run as administrator
+  lalu file -> open -> C:\Windows\System32\drivers\etc\hosts
+  127.0.0.1  http://tugas-oop.test
+  maka ketika kita membuka http://tugas-oop.test sama dengan membuka http://localhost/
+untuk konfigurasi xampp 
+C:\xampp\apache\conf\extra\httpd-vhosts.conf
+<VirtualHost *:80>
+    ServerAdmin webmaster@project1.local
+    DocumentRoot "C:/xampp/htdocs/project1"
+    ServerName http://tugas-oop.test
+    ErrorLog "logs/project1-error.log"
+    CustomLog "logs/project1-access.log" common
+</VirtualHost>
 
+jangan lupa C:\xampp\apache\conf\httpd.conf
+cari 
+#Include conf/extra/httpd-vhosts.conf
+buang tanda # menjadi
+Include conf/extra/httpd-vhosts.conf
+restart apache
+
+sedangkan untuk linux / mac bisa pada /etc/hosts
+
+3. login
 user : lalapo
 pass : lalapo
+
+4. noted tambahan
+field role dan user_role untuk pemrograman framework
 
 
 app/
@@ -91,3 +118,4 @@ class Produk {
 <?php endforeach; ?>
 </ul>
 ```
+
