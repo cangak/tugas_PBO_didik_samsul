@@ -2,8 +2,6 @@
 // core/init.php - bootstrap
 $config = require __DIR__ . '/../config/config.php';
 define('BASEURL', $config['base_url']);
-require __DIR__ . '/../app/Helpers/AuthHelper.php';
-require __DIR__ . '/../app/Helpers/Flasher.php';
 
 
 /* penjelasan autloloader:
@@ -18,6 +16,9 @@ spl_autoload_register(function($class){
         __DIR__ . '/' . $class . '.php',
         __DIR__ . '/../app/Controllers/' . $class . '.php',
         __DIR__ . '/../app/Models/' . $class . '.php',
+        __DIR__ . '/../app/Helpers/Flasher.php',
+        __DIR__ . '/../app/Helpers/AuthHelper.php',
+
     ];
     foreach($paths as $p) if(file_exists($p)) require_once $p;
 });

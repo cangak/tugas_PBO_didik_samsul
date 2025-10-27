@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 21 Okt 2025 pada 13.19
+-- Waktu pembuatan: 27 Okt 2025 pada 11.09
 -- Versi server: 9.3.0
 -- Versi PHP: 8.2.28
 
@@ -32,7 +32,7 @@ CREATE TABLE `berita` (
   `judul` varchar(200) NOT NULL,
   `konten` text NOT NULL,
   `user_id` int UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data untuk tabel `berita`
@@ -55,16 +55,17 @@ CREATE TABLE `halaman` (
   `id` int NOT NULL,
   `judul_halaman` varchar(150) NOT NULL,
   `konten_halaman` text NOT NULL,
-  `gambar` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `gambar` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `user_id` int UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data untuk tabel `halaman`
 --
 
 INSERT INTO `halaman` (`id`, `judul_halaman`, `konten_halaman`, `gambar`, `user_id`) VALUES
-(10, 'lalapo', 'lalapo', 'Screenshot 2025-08-29 at 15.01.48.png', 1);
+(11, 'asda', 'asdadasd', 'img_68fedde7d5654.png', 1),
+(14, 'adasd', 'adasdasdasdas', 'img_68ff102862e8e.png', 3);
 
 -- --------------------------------------------------------
 
@@ -78,7 +79,7 @@ CREATE TABLE `komentar` (
   `user_id` int UNSIGNED NOT NULL,
   `jenis_konten` int NOT NULL,
   `jenis_komentar` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data untuk tabel `komentar`
@@ -110,7 +111,11 @@ CREATE TABLE `kontak` (
 --
 
 INSERT INTO `kontak` (`id`, `nama`, `nomor_hp`, `status`, `user_id`) VALUES
-(23, 'kontak', '11111', 'AKTIF', 1);
+(23, 'kontak', '11111', 'AKTIF', 1),
+(25, 'asdadasdaads', '123112312', 'AKTIF', 1),
+(26, 'asdasd', '123131231231', 'AKTIF', 1),
+(27, 'asd', '123123213', 'AKTIF', 1),
+(28, 'asdasd', '123123123', 'AKTIF', 3);
 
 -- --------------------------------------------------------
 
@@ -127,17 +132,19 @@ CREATE TABLE `menus` (
   `order_no` int DEFAULT '0',
   `role_access` varchar(255) DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data untuk tabel `menus`
 --
 
 INSERT INTO `menus` (`id`, `parent_id`, `title`, `icon`, `url`, `order_no`, `role_access`, `is_active`) VALUES
-(1, NULL, 'Dashboard', 'bi bi-speedometer2', 'dashboard', 1, 'admin', 1),
+(1, NULL, 'Dashboard', 'bi bi-speedometer2', 'home', 1, 'admin,user', 1),
 (2, NULL, 'Manajemen Halaman', 'bi bi-file-text', 'halaman', 2, 'admin,user', 1),
 (3, NULL, 'Manajemen Kontak', 'bi bi-person-lines-fill', 'kontak', 3, 'admin,user', 1),
-(4, NULL, 'Pengaturan', 'bi bi-gear', '#', 4, 'admin', 1);
+(4, NULL, 'Pengaturan', 'bi bi-gear', '#', 4, 'admin', 1),
+(5, 4, 'Menu', '', 'menu', 2, 'admin', 1),
+(6, 4, 'Role', '', 'role', 1, 'admin', 1);
 
 -- --------------------------------------------------------
 
@@ -150,7 +157,7 @@ CREATE TABLE `roles` (
   `nama` varchar(50) NOT NULL,
   `deskripsi` varchar(150) DEFAULT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data untuk tabel `roles`
@@ -171,7 +178,7 @@ CREATE TABLE `users` (
   `nama` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `username` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_gl_0900_ai_ci;
 
 --
 -- Dumping data untuk tabel `users`
@@ -180,9 +187,10 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `nama`, `username`, `password`) VALUES
 (1, 'lalapo', 'lalapo', '$2y$10$RXhiy08PudIxu0XE4v892.fnr6f.UQZMUHLuhr3gVfPJdvTG3XQTW'),
 (2, 'tes user', 'tes', '$2y$10$RXhiy08PudIxu0XE4v892.fnr6f.UQZMUHLuhr3gVfPJdvTG3XQTW'),
-(3, 'didik', 'didik', '$2y$12$EPuxmAx5jhkgrHvQFUuxueuEZJaE4uzhle4TmIvG7iddKdzedpVuy'),
+(3, 'didik', 'didik', '$2y$10$RXhiy08PudIxu0XE4v892.fnr6f.UQZMUHLuhr3gVfPJdvTG3XQTW'),
 (4, 'didiksamsul', 'didiksamsul', '$2y$12$ePpjxEWR2bRfuH..0svBmul6ip0KOxQkwQHcgpSF71rvTPW4ZIYWy'),
-(6, 'malam@ma.com', 'malam', '$2y$10$dFHOsRo7OBibA1B3zniCCuQ4POSLrRqjkRjZ/KwyRSM3VeV/Z9Hl2');
+(6, 'malam@ma.com', 'malam', '$2y$10$dFHOsRo7OBibA1B3zniCCuQ4POSLrRqjkRjZ/KwyRSM3VeV/Z9Hl2'),
+(7, 'testint', 'testing', '$2y$10$FJqDqJuPhMxU9W3fubBhO.5umq48wE8dgQRPEU4na74hNRNrrqS3m');
 
 -- --------------------------------------------------------
 
@@ -193,14 +201,16 @@ INSERT INTO `users` (`id`, `nama`, `username`, `password`) VALUES
 CREATE TABLE `user_roles` (
   `user_id` int UNSIGNED NOT NULL,
   `role_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data untuk tabel `user_roles`
 --
 
 INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
-(1, 1);
+(1, 1),
+(3, 2),
+(7, 2);
 
 --
 -- Indexes for dumped tables
@@ -277,7 +287,7 @@ ALTER TABLE `berita`
 -- AUTO_INCREMENT untuk tabel `halaman`
 --
 ALTER TABLE `halaman`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `komentar`
@@ -289,25 +299,25 @@ ALTER TABLE `komentar`
 -- AUTO_INCREMENT untuk tabel `kontak`
 --
 ALTER TABLE `kontak`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT untuk tabel `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

@@ -29,4 +29,18 @@ class Login
         $this->db->bind('username', $username);
         return $this->db->single();
     }
+    public function registerUser($nama, $username, $password)
+    {
+        $query = "
+            INSERT INTO users (nama, username, password)
+            VALUES (:nama, :username, :password)
+        ";
+
+        $this->db->query($query);
+        $this->db->bind('nama', $nama);
+        $this->db->bind('username', $username);
+        $this->db->bind('password', $password);
+
+        return $this->db->execute();
+    }
 }

@@ -14,10 +14,10 @@
   </thead>
   <tbody>
     <?php foreach ($data['halaman'] as $h): 
-       $isAdmin = AuthHelper::role() === 'Admin';
+       $isAdmin = AuthHelper::role() === 'admin';
     $isOwner = AuthHelper::userId() == $h['user_id'];
     ?>
-      ?>
+  
       <tr>
         <td><?= $h['id'] ?></td>
         <td><?= $h['judul_halaman'] ?></td>
@@ -36,7 +36,7 @@
           <?php if ($isAdmin || $isOwner): ?>
 
           <a href="<?= BASEURL ?>/halaman/edit/<?= $h['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-          <a href="<?= BASEURL ?>/halaman/delete/<?= $h['id'] ?>" class="btn btn-danger btn-sm" onclick="confirmModal(event)">Delete</a>
+          <a href="<?= BASEURL ?>/halaman/delete/<?= $h['id'] ?>" class="btn btn-danger btn-sm" onclick="confirmModal(event)">Hapus</a>
       <?php endif; ?>
 
         </td>
