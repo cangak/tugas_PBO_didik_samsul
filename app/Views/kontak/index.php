@@ -13,7 +13,10 @@
             </tr>
         </thead>
         <tbody>
-        <?php foreach ($data['kontak'] as $k): ?>
+        <?php foreach ($data['kontak'] as $k): 
+                 $isAdmin = AuthHelper::role() === 'Admin';
+    $isOwner = AuthHelper::userId() == $k['user_id'];
+            ?>
             <tr>
                 <td><?= $k['id'] ?></td>
                 <td><?= $k['nama'] ?></td>
@@ -25,8 +28,11 @@
                 </td>
                 <td><?= $k['nama_user'] ?></td>
                 <td>
+          <?php if ($isAdmin || $isOwner): ?>
+
                     <a class="btn btn-warning btn-sm" href="<?= BASEURL ?>/kontak/edit/<?= $k['id'] ?>">Edit</a>
                     <a class="btn btn-danger btn-sm" href="<?= BASEURL ?>/kontak/delete/<?= $k['id'] ?>" onclick="confirmModal(event)">Delete</a>
+        <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach; ?>

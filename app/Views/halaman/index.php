@@ -1,4 +1,4 @@
-<?php ?>
+
 <h1><?= $data['title'] ?></h1>
 <a href="<?= BASEURL ?>/halaman/tambah" class="btn btn-primary mb-3">Tambah Halaman</a>
 <table class="table table-bordered">
@@ -13,7 +13,11 @@
     </tr>
   </thead>
   <tbody>
-    <?php foreach ($data['halaman'] as $h): ?>
+    <?php foreach ($data['halaman'] as $h): 
+       $isAdmin = AuthHelper::role() === 'Admin';
+    $isOwner = AuthHelper::userId() == $h['user_id'];
+    ?>
+      ?>
       <tr>
         <td><?= $h['id'] ?></td>
         <td><?= $h['judul_halaman'] ?></td>
@@ -29,8 +33,12 @@
 
         <td><?= $h['nama_user'] ?></td>
         <td>
+          <?php if ($isAdmin || $isOwner): ?>
+
           <a href="<?= BASEURL ?>/halaman/edit/<?= $h['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
           <a href="<?= BASEURL ?>/halaman/delete/<?= $h['id'] ?>" class="btn btn-danger btn-sm" onclick="confirmModal(event)">Delete</a>
+      <?php endif; ?>
+
         </td>
       </tr>
     <?php endforeach; ?>

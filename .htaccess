@@ -1,0 +1,8 @@
+# Aktifkan mod_rewrite
+RewriteEngine On
+# Pastikan base path-nya adalah root domain
+RewriteBase /
+# Jika file atau folder yang diminta tidak ada, arahkan ke index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [L,QSA]

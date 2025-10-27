@@ -2,6 +2,9 @@
 // core/init.php - bootstrap
 $config = require __DIR__ . '/../config/config.php';
 define('BASEURL', $config['base_url']);
+require __DIR__ . '/../app/Helpers/AuthHelper.php';
+require __DIR__ . '/../app/Helpers/Flasher.php';
+
 
 /* penjelasan autloloader:
 andai kita punya rumah dengan berbagai komponen(class), pintu, cendela,atap,dinding, dindingDapur,ddindinKamar, dll.
