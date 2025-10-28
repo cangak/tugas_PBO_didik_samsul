@@ -38,4 +38,21 @@ class AuthHelper
         header('Location: ' . BASEURL . '/login');
         exit;
     }
+    public static function getRoleByUserId($userId)
+    {
+        require_once __DIR__ . '/../../core/Database.php';
+        $db = new Database();
+
+        $db->query("
+            SELECT r.nama AS role_nama
+            FROM user_roles ur
+            JOIN roles r ON ur.role_id = r.id
+            WHERE ur.user_id = :user_id
+            LIMIT 1
+        ");
+        $db->bind('user_id', $userId);
+        $row = $db->single();
+
+        return $row['role_nama'] ?? 'Belum ada Role';
+    }
 }

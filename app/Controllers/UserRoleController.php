@@ -26,7 +26,6 @@ class UserRoleController extends Controller
 
     public function store()
     {
-        require_once __DIR__ . '/../Helpers/Flasher.php';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user_id = (int)($_POST['user_id'] ?? 0);
@@ -60,7 +59,6 @@ class UserRoleController extends Controller
 
     public function delete($user_id, $role_id)
     {
-        require_once __DIR__ . '/../Helpers/Flasher.php';
 
         $userRoleModel = $this->model('UserRole');
         $userRoleModel->hapus($user_id, $role_id);
