@@ -12,7 +12,9 @@ BAGIAN base url belum bisa dalam subfolder
   127.0.0.1  http://tugas-oop.test
   maka ketika kita membuka http://tugas-oop.test sama dengan membuka http://localhost/
 untuk konfigurasi xampp 
-C:\xampp\apache\conf\extra\httpd-vhosts.conf
+
+```C:\xampp\apache\conf\extra\httpd-vhosts.conf```
+```
 <VirtualHost *:80>
     ServerAdmin webmaster@project1.local
     DocumentRoot "C:/xampp/htdocs/project1"
@@ -20,6 +22,7 @@ C:\xampp\apache\conf\extra\httpd-vhosts.conf
     ErrorLog "logs/project1-error.log"
     CustomLog "logs/project1-access.log" common
 </VirtualHost>
+```
 
 jangan lupa C:\xampp\apache\conf\httpd.conf
 cari 
